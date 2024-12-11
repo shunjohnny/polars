@@ -1,0 +1,475 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+<style>
+  body {
+    font-family: system-ui, -apple-system, sans-serif;
+    max-width: 1000px;
+    margin: 0 auto;
+    background: #f8fafc;
+    padding: 2rem;
+  }
+  .container {
+    background: white;
+    border-radius: 1rem;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+  }
+  .header {
+    background: linear-gradient(135deg, #ec4899, #a855f7);
+    color: white;
+    padding: 2rem;
+  }
+  .content {
+    padding: 2rem;
+  }
+  .card {
+    background: #f1f5f9;
+    border-radius: 0.5rem;
+    padding: 1.5rem;
+    margin-bottom: 1.5rem;
+  }
+  .feature {
+    background: white;
+    padding: 1rem;
+    border-radius: 0.5rem;
+    margin-bottom: 1rem;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+  }
+  .code {
+    background: #1e293b;
+    color: #e2e8f0;
+    padding: 1.5rem;
+    border-radius: 0.5rem;
+    font-family: monospace;
+    margin: 0.5rem 0;
+    overflow-x: auto;
+    line-height: 1.5;
+    white-space: pre;
+  }
+  .keyword { color: #ff79c6; }
+  .string { color: #98fb98; }
+  .number { color: #bd93f9; }
+  .comment { color: #6b7280; }
+  .function { color: #8be9fd; }
+  .output {
+    background: #334155;
+    color: #e2e8f0;
+    padding: 1rem;
+    border-radius: 0.5rem;
+    margin-top: 0.5rem;
+    font-family: monospace;
+    white-space: pre;
+  }
+  .tip {
+    background: #fef3c7;
+    padding: 1rem;
+    border-radius: 0.5rem;
+    margin: 1rem 0;
+    border-left: 4px solid #f59e0b;
+  }
+  .warning {
+    background: #fee2e2;
+    padding: 1rem;
+    border-radius: 0.5rem;
+    margin: 1rem 0;
+    border-left: 4px solid #ef4444;
+  }
+  .success {
+    background: #dcfce7;
+    padding: 1rem;
+    border-radius: 0.5rem;
+    margin: 1rem 0;
+    border-left: 4px solid #22c55e;
+  }
+  .emphasis {
+    color: #ec4899;
+    font-weight: bold;
+  }
+  .step-number {
+    display: inline-block;
+    background: #ec4899;
+    color: white;
+    width: 24px;
+    height: 24px;
+    border-radius: 12px;
+    text-align: center;
+    margin-right: 8px;
+  }
+  .method-title {
+    color: #6366f1;
+    font-weight: bold;
+    margin: 1rem 0 0.5rem 0;
+  }
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 1rem 0;
+  }
+  th, td {
+    border: 1px solid #e2e8f0;
+    padding: 0.75rem;
+    text-align: left;
+  }
+  th {
+    background: #f8fafc;
+  }
+
+    <style>
+    body {
+        font-family: system-ui, -apple-system, sans-serif;
+        max-width: 900px;
+        margin: 0 auto;
+        background: #f8fafc;
+        padding: 2rem;
+    }
+    .container {
+        background: white;
+        border-radius: 1rem;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        overflow: hidden;
+        position: relative;
+    }
+    .sidebar-toggle {
+        position: absolute;
+        top: 1rem;
+        right: 1rem;
+        width: 2.5rem;
+        height: 2.5rem;
+        border-radius: 0.5rem;
+        background: white;
+        border: 1px solid #e2e8f0;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.25rem;
+        z-index: 1001;
+        transition: all 0.2s ease;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+    .sidebar-toggle:hover {
+        background: #f1f5f9;
+        transform: translateY(-1px);
+        box-shadow: 0 3px 6px rgba(0, 0, 0, 0.1);
+    }
+    .sidebar-toggle.active {
+        background: #f1f5f9;
+        transform: translateX(-250px);
+    }
+    .sidebar {
+        position: absolute;
+        top: 0;
+        right: 0;
+        width: 250px;
+        height: 100%;
+        background: #f1f5f9;
+        border-left: 1px solid #e2e8f0;
+        padding: 1rem;
+        padding-top: 4rem;
+        box-sizing: border-box;
+        transform: translateX(100%);
+        transition: transform 0.3s ease;
+        z-index: 1000;
+        box-shadow: -2px 0 4px rgba(0, 0, 0, 0.1);
+    }
+    .sidebar.open {
+        transform: translateX(0);
+    }
+    .sidebar-content {
+        height: 100%;
+        overflow-y: auto;
+    }
+    .sidebar-item {
+        display: block;
+        padding: 0.75rem 1rem;
+        color: #475569;
+        text-decoration: none;
+        transition: all 0.2s ease;
+        border-radius: 0.375rem;
+        margin-bottom: 0.25rem;
+        font-size: 0.95rem;
+    }
+    .sidebar-item:hover {
+        background: white;
+        color: #1d4ed8;
+        transform: translateX(4px);
+    }
+    .back-button {
+        position: absolute;
+        top: 1rem;
+        left: 1rem;
+        height: 2.5rem;
+        padding: 0 1rem;
+        border-radius: 0.5rem;
+        background: white;
+        border: 1px solid #e2e8f0;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 0.95rem;
+        z-index: 1001;
+        transition: all 0.2s ease;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        color: #475569;
+        text-decoration: none;
+    }
+    .back-button:hover {
+        background: #f1f5f9;
+        transform: translateY(-1px);
+        box-shadow: 0 3px 6px rgba(0, 0, 0, 0.1);
+        color: #1d4ed8;
+    }
+    .back-button span {
+        margin-right: 0.5rem;
+    }
+    </style>
+    </style>
+</head>
+<body>
+<div class="container">
+<div class="header">
+<h1>💅 Polarsマジ完全攻略ガイド！</h1>
+<p>データ分析の新定番✨ Polarsのすべてを完全解説しちゃうよ！初心者でも分かるように丁寧に説明していくね！</p>
+</div>
+<div class="content">
+<div class="card">
+<h2>🌟 まずはインストールから！</h2>
+<div class="feature">
+<p>Polarsのインストールは超簡単！たった1行でOK！</p>
+<div class="code"><span class="keyword">pip</span> install polars</div>
+<div class="tip">💡 pipコマンドが見つからないって言われたら、Pythonのインストールを確認してね！</div>
+</div>
+</div>
+<div class="card">
+<h2>📚 データフレームを作ってみよう！</h2>
+<div class="feature">
+<p>最初は小さいデータから始めるのがおすすめ！こんな感じで作れるよ！</p>
+<div class="code"><span class="keyword">import</span> polars <span class="keyword">as</span> pl
+<span class="keyword">import</span> datetime <span class="keyword">as</span> dt
+
+<span class="comment"># サンプルデータでデータフレームを作成</span>
+df = pl.DataFrame(
+    {
+        <span class="string">"name"</span>: [<span class="string">"Alice Archer"</span>, <span class="string">"Ben Brown"</span>, <span class="string">"Chloe Cooper"</span>, <span class="string">"Daniel Donovan"</span>],
+        <span class="string">"birthdate"</span>: [
+            dt.date(<span class="number">1997</span>, <span class="number">1</span>, <span class="number">10</span>),
+            dt.date(<span class="number">1985</span>, <span class="number">2</span>, <span class="number">15</span>),
+            dt.date(<span class="number">1983</span>, <span class="number">3</span>, <span class="number">22</span>),
+            dt.date(<span class="number">1981</span>, <span class="number">4</span>, <span class="number">30</span>),
+        ],
+        <span class="string">"weight"</span>: [<span class="number">57.9</span>, <span class="number">72.5</span>, <span class="number">53.6</span>, <span class="number">83.1</span>],  <span class="comment"># kg単位</span>
+<span class="string">"height"</span>: [<span class="number">1.56</span>, <span class="number">1.77</span>, <span class="number">1.65</span>, <span class="number">1.75</span>],  <span class="comment"># m単位</span>
+    }
+)</div>
+<div class="success">✨ これで基本的なデータフレームの完成！</div>
+<div class="output">shape: (4, 4)
+┌────────────────┬────────────┬────────┬────────┐
+│ name           ┆ birthdate  ┆ weight ┆ height │
+│ ---            ┆ ---        ┆ ---    ┆ ---    │
+│ str            ┆ date       ┆ f64    ┆ f64    │
+╞════════════════╪════════════╪════════╪════════╡
+│ Alice Archer   ┆ 1997-01-10 ┆ 57.9   ┆ 1.56   │
+│ Ben Brown      ┆ 1985-02-15 ┆ 72.5   ┆ 1.77   │
+│ Chloe Cooper   ┆ 1983-03-22 ┆ 53.6   ┆ 1.65   │
+│ Daniel Donovan ┆ 1981-04-30 ┆ 83.1   ┆ 1.75   │
+└────────────────┴────────────┴────────┴────────┘</div>
+</div>
+</div>
+<div class="card">
+<h2>💾 データの保存と読み込み</h2>
+<div class="feature">
+<h3>CSVファイルの操作</h3>
+<div class="code"><span class="comment"># CSVファイルに保存</span>
+df.write_csv(<span class="string">"output.csv"</span>)
+
+<span class="comment"># CSVファイルから読み込み</span>
+df_csv = pl.read_csv(<span class="string">"output.csv"</span>, try_parse_dates=<span class="keyword">True</span>)</div>
+<div class="tip">💡 try_parse_datesをTrueにすると、日付の列を自動で認識してくれるよ！</div>
+</div>
+</div>
+<div class="card">
+<h2>🎯 データの操作方法を完全マスター！</h2>
+<div class="feature">
+<h3>1️⃣ selectで列を自由自在に操作！</h3>
+<p>必要な列を選んで、新しい列も作れちゃう！計算もバッチリ！</p>
+<div class="code"><span class="comment"># 身長・体重からBMIを計算する例</span>
+result = df.select(
+    pl.col(<span class="string">"name"</span>),
+    pl.col(<span class="string">"birthdate"</span>).dt.year().alias(<span class="string">"birth_year"</span>),
+    (pl.col(<span class="string">"weight"</span>) / (pl.col(<span class="string">"height"</span>) ** <span class="number">2</span>))
+        .round(<span class="number">2</span>)
+        .alias(<span class="string">"bmi"</span>)
+)</div>
+<div class="output">shape: (4, 3)
+┌────────────────┬────────────┬───────────┐
+│ name           ┆ birth_year ┆ bmi       │
+│ ---            ┆ ---        ┆ ---       │
+│ str            ┆ i32        ┆ f64       │
+╞════════════════╪════════════╪═══════════╡
+│ Alice Archer   ┆ 1997       ┆ 23.79     │
+│ Ben Brown      ┆ 1985       ┆ 23.14     │
+│ Chloe Cooper   ┆ 1983       ┆ 19.69     │
+│ Daniel Donovan ┆ 1981       ┆ 27.13     │
+└────────────────┴────────────┴───────────┘</div>
+<div class="tip">💡 aliasを使うと、新しい列に分かりやすい名前をつけられるよ！</div>
+</div>
+<div class="feature">
+<h3>2️⃣ with_columnsで列を追加！</h3>
+<p>既存のデータはそのままで、新しい列を追加できるの！</p>
+<div class="code">result = df.with_columns(
+    birth_year=pl.col(<span class="string">"birthdate"</span>).dt.year(),
+    age=(pl.col(<span class="string">"birthdate"</span>).dt.year() - <span class="number">2024</span>).abs(),
+    bmi=(pl.col(<span class="string">"weight"</span>) / (pl.col(<span class="string">"height"</span>) ** <span class="number">2</span>)).round(<span class="number">2</span>)
+)</div>
+<div class="success">💡 複数の列を一気に追加できちゃう！便利でしょ？</div>
+</div>
+<div class="feature">
+<h3>3️⃣ filterで条件検索！</h3>
+<p>データを条件で絞り込めるよ！複数条件も簡単！</p>
+<div class="code"><span class="comment"># 1990年より前に生まれた、身長170cm以上の人を探す</span>
+result = df.filter(
+    pl.col(<span class="string">"birthdate"</span>).dt.year() &lt; <span class="number">1990</span>,
+    pl.col(<span class="string">"height"</span>) &gt; <span class="number">1.7</span>
+)</div>
+<div class="tip">💡 条件はカンマで区切って書くだけ！&amp;とか使わなくていいの！</div>
+</div>
+<div class="feature">
+<h3>4️⃣ group_byでデータをまとめる！</h3>
+<p>同じ値のデータをグループにして集計できるよ！</p>
+<div class="code"><span class="comment"># 年代ごとの統計を見てみよう！</span>
+result = df.group_by(
+    (pl.col(<span class="string">"birthdate"</span>).dt.year() // <span class="number">10</span> * <span class="number">10</span>).alias(<span class="string">"decade"</span>),
+    maintain_order=<span class="keyword">True</span>
+).agg(
+    pl.len().alias(<span class="string">"count"</span>),
+    pl.col(<span class="string">"weight"</span>).mean().round(<span class="number">2</span>).alias(<span class="string">"avg_weight"</span>),
+    pl.col(<span class="string">"height"</span>).max().alias(<span class="string">"max_height"</span>),
+    pl.col(<span class="string">"height"</span>).min().alias(<span class="string">"min_height"</span>)
+)</div>
+<div class="output">shape: (2, 5)
+┌────────┬───────┬────────────┬────────────┬────────────┐
+│ decade ┆ count ┆ avg_weight ┆ max_height ┆ min_height │
+│ ---    ┆ ---   ┆ ---        ┆ ---        ┆ ---        │
+│ i32    ┆ u32   ┆ f64        ┆ f64        ┆ f64        │
+╞════════╪═══════╪════════════╪════════════╪════════════╡
+│ 1990   ┆ 1     ┆ 57.90      ┆ 1.56       ┆ 1.56       │
+│ 1980   ┆ 3     ┆ 69.73      ┆ 1.77       ┆ 1.65       │
+└────────┴───────┴────────────┴────────────┴────────────┘</div>
+<div class="tip">💡 maintain_order=Trueをつけると、元のデータの順番を保ってくれるの！</div>
+</div>
+<div class="feature">
+<h3>5️⃣ データフレームの結合テクニック！</h3>
+<p>2つのデータフレームを組み合わせる方法を紹介するよ！</p>
+<div class="code"><span class="comment"># 追加のデータフレームを作成</span>
+df2 = pl.DataFrame(
+    {
+        <span class="string">"name"</span>: [<span class="string">"Ben Brown"</span>, <span class="string">"Daniel Donovan"</span>, <span class="string">"Alice Archer"</span>, <span class="string">"Chloe Cooper"</span>],
+        <span class="string">"parent"</span>: [<span class="keyword">True</span>, <span class="keyword">False</span>, <span class="keyword">False</span>, <span class="keyword">False</span>],
+        <span class="string">"siblings"</span>: [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>],
+    }
+)
+
+<span class="comment"># left joinで結合！</span>
+result = df.join(
+    df2,
+    on=<span class="string">"name"</span>,
+    how=<span class="string">"left"</span>
+)</div>
+<div class="output">shape: (4, 6)
+┌────────────────┬────────────┬────────┬────────┬────────┬──────────┐
+│ name           ┆ birthdate  ┆ weight ┆ height ┆ parent ┆ siblings │
+│ ---            ┆ ---        ┆ ---    ┆ ---    ┆ ---    ┆ ---      │
+│ str            ┆ date       ┆ f64    ┆ f64    ┆ bool   ┆ i64      │
+╞════════════════╪════════════╪════════╪════════╪════════╪══════════╡
+│ Alice Archer   ┆ 1997-01-10 ┆ 57.9   ┆ 1.56   ┆ false  ┆ 3        │
+│ Ben Brown      ┆ 1985-02-15 ┆ 72.5   ┆ 1.77   ┆ true   ┆ 1        │
+│ Chloe Cooper   ┆ 1983-03-22 ┆ 53.6   ┆ 1.65   ┆ false  ┆ 4        │
+│ Daniel Donovan ┆ 1981-04-30 ┆ 83.1   ┆ 1.75   ┆ false  ┆ 2        │
+└────────────────┴────────────┴────────┴────────┴────────┴──────────┘</div>
+<div class="tip">💡 joinのhowオプションで結合方法を選べるよ！
+- left: 左のデータフレームを基準に結合
+- inner: 両方にあるデータだけ結合
+- outer: すべてのデータを結合</div>
+</div>
+<div class="feature">
+<h3>6️⃣ データフレームの縦結合も簡単！</h3>
+<p>別々のデータフレームを縦に繋げることもできるの！</p>
+<div class="code"><span class="comment"># 新しいデータを作成</span>
+df3 = pl.DataFrame(
+    {
+        <span class="string">"name"</span>: [<span class="string">"Ethan Edwards"</span>, <span class="string">"Fiona Foster"</span>],
+        <span class="string">"birthdate"</span>: [
+            dt.date(<span class="number">1977</span>, <span class="number">5</span>, <span class="number">10</span>),
+            dt.date(<span class="number">1975</span>, <span class="number">6</span>, <span class="number">23</span>),
+        ],
+        <span class="string">"weight"</span>: [<span class="number">67.9</span>, <span class="number">72.5</span>],
+        <span class="string">"height"</span>: [<span class="number">1.76</span>, <span class="number">1.6</span>],
+    }
+)
+
+<span class="comment"># verticalで縦に結合！</span>
+result = pl.concat([df, df3], how=<span class="string">"vertical"</span>)</div>
+<div class="warning">⚠️ concatするときは列の名前と型が同じじゃないとダメだよ！</div>
+</div>
+</div>
+<div class="card">
+<h2>💝 便利な小技集</h2>
+<div class="feature">
+<h3>🎀 データ型の確認</h3>
+<div class="code">print(df.dtypes)  <span class="comment"># 各列の型を確認</span>
+print(df.shape)   <span class="comment"># データの行数と列数を確認</span>
+print(df.columns) <span class="comment"># 列名の一覧を確認</span></div>
+</div>
+<div class="feature">
+<h3>✨ データのプレビュー</h3>
+<div class="code">print(df.head(<span class="number">2</span>))  <span class="comment"># 先頭2行を表示</span>
+print(df.tail(<span class="number">2</span>))  <span class="comment"># 末尾2行を表示</span>
+print(df.sample(<span class="number">2</span>)) <span class="comment"># ランダムに2行を表示</span></div>
+</div>
+<div class="feature">
+<h3>🌟 基本統計量の確認</h3>
+<div class="code">print(df.describe())  <span class="comment"># 数値列の基本統計量を表示</span></div>
+</div>
+</div>
+<div class="card">
+<h2>💫 まとめ</h2>
+<div class="feature">
+<h3>Polarsの主な特徴</h3>
+<ul>
+<li>⚡️ Rustで作られてて<span class="emphasis">マジ速い</span>！</li>
+<li>💅 並列処理が<span class="emphasis">デフォルトでできる</span>！</li>
+<li>🎯 データ型が<span class="emphasis">しっかりしてる</span>から安心！</li>
+<li>📈 大きいデータも<span class="emphasis">らくらく処理</span>！</li>
+<li>✨ クエリが<span class="emphasis">自動で最適化</span>される！</li>
+</ul>
+<div class="success">これで君もPolarsマスターへの第一歩！実際に使ってみてね！🎉</div>
+</div>
+</div>
+</div>
+
+<a class="back-button" href="../index.html">
+<span>←</span> インデックス
+    </a>
+
+<button class="sidebar-toggle" id="sidebarToggle">
+<span>📑</span>
+</button>
+<div class="sidebar" id="sidebar">
+<nav class="sidebar-content">
+<a class="sidebar-item" href="Polars_User_guide.html">💅 Polars超入門～！</a>
+<a class="sidebar-item" href="getting_started.html">💅 Polarsマジ完全攻略ガイド！</a>
+</nav>
+</div>
+<script>
+        document.getElementById("sidebarToggle").addEventListener("click", function() {
+            const sidebar = document.getElementById("sidebar");
+            sidebar.classList.toggle("open");
+            this.classList.toggle("active");
+        });
+    </script>
+</div>
+</body>
+</html>
