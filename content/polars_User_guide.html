@@ -1,0 +1,115 @@
+import React from 'react';
+
+const CodeBlock = ({ children }) => (
+  <div className="bg-gray-800 text-gray-100 p-4 rounded-lg font-mono text-sm overflow-x-auto">
+    <pre>{children}</pre>
+  </div>
+);
+
+export default function PolarsDocsGyaru() {
+  return (
+    <div className="max-w-4xl mx-auto p-8 bg-gray-50">
+      <div className="bg-white rounded-xl shadow-lg overflow-hidden">
+        <div className="bg-gradient-to-r from-pink-500 to-purple-600 p-8 text-white">
+          <h1 className="text-4xl font-bold mb-2">💅 Polars超入門～！</h1>
+          <p className="text-xl">マジ速いデータ分析ライブラリ、Polarsの使い方を解説するね！</p>
+        </div>
+        
+        <div className="p-8">
+          <div className="bg-gray-50 rounded-lg p-6 mb-6">
+            <h2 className="text-2xl font-bold mb-4">✨ Polarsのすごいとこ！</h2>
+            <div className="space-y-4">
+              <div className="bg-white p-4 rounded shadow-sm">
+                <h3 className="font-bold text-pink-600 mb-2">💨 速さがやばい！</h3>
+                <p>Rustで作られてて、マシンに超フィットする設計なの！依存とかなしでサクサク動くよ～</p>
+              </div>
+              <div className="bg-white p-4 rounded shadow-sm">
+                <h3 className="font-bold text-pink-600 mb-2">📂 入出力が便利！</h3>
+                <p>ローカルでもクラウドでもデータベースでも、なんでも読み込めちゃう！マジ使える！</p>
+              </div>
+              <div className="bg-white p-4 rounded shadow-sm">
+                <h3 className="font-bold text-pink-600 mb-2">💁‍♀️ 使い方簡単！</h3>
+                <p>クエリの書き方が超分かりやすいの！裏側で最適化とかしてくれるから効率もバッチリ！</p>
+              </div>
+              <div className="bg-white p-4 rounded shadow-sm">
+                <h3 className="font-bold text-pink-600 mb-2">💫 メモリの心配なし！</h3>
+                <p>ストリーミングAPIで、全部のデータをメモリに入れなくても処理できちゃうの！賢すぎない？</p>
+              </div>
+              <div className="bg-white p-4 rounded shadow-sm">
+                <h3 className="font-bold text-pink-600 mb-2">💅 並列処理もデフォ！</h3>
+                <p>PCのコア全部使って分散処理してくれるの！設定とかいらないからマジ楽！</p>
+              </div>
+              <div className="bg-white p-4 rounded shadow-sm">
+                <h3 className="font-bold text-pink-600 mb-2">🎮 GPU対応！</h3>
+                <p>NVIDIAのGPU使えば、さらにパワーアップできちゃう！オプションだけど最強！</p>
+              </div>
+            </div>
+          </div>
+
+          <div className="bg-gray-50 rounded-lg p-6 mb-6">
+            <h2 className="text-2xl font-bold mb-4">🌈 データフレームって何？</h2>
+            <div className="bg-white p-4 rounded shadow-sm">
+              <p>データフレームは2次元のデータ構造で、表みたいな感じなの！行と列にラベルがついてて、違うタイプのデータも一緒に扱えるの！マジ便利！分析とか加工とかが超らくちん！💕</p>
+            </div>
+          </div>
+
+          <div className="bg-gray-50 rounded-lg p-6 mb-6">
+            <h2 className="text-2xl font-bold mb-4">🎯 Polarsの目指してること</h2>
+            <div className="space-y-2">
+              <div className="bg-white p-3 rounded shadow-sm">💪 全CPUコア使いこなす！</div>
+              <div className="bg-white p-3 rounded shadow-sm">✨ 無駄な処理なしの最適化！</div>
+              <div className="bg-white p-3 rounded shadow-sm">📈 RAMより大きいデータもへっちゃら！</div>
+              <div className="bg-white p-3 rounded shadow-sm">👌 使い方が一貫してて分かりやすい！</div>
+              <div className="bg-white p-3 rounded shadow-sm">🎯 データの型がちゃんとしてる！</div>
+            </div>
+          </div>
+
+          <div className="bg-gray-50 rounded-lg p-6 mb-6">
+            <h2 className="text-2xl font-bold mb-4">🌟 実際の使い方</h2>
+            <div className="space-y-2">
+              <CodeBlock>
+                <span className="text-purple-400">import</span>{" "}
+                <span className="text-blue-300">polars</span>{" "}
+                <span className="text-purple-400">as</span>{" "}
+                <span className="text-blue-300">pl</span>
+
+                {"\n\n"}
+                <span className="text-gray-500"># クエリを書いていくよ～</span>{"\n"}
+                q = ({"\n"}
+                {"    "}pl.scan_csv(<span className="text-green-300">"docs/assets/data/iris.csv"</span>){"\n"}
+                {"    "}.filter(pl.col(<span className="text-green-300">"sepal_length"</span>) {">"} <span className="text-yellow-300">5</span>){"\n"}
+                {"    "}.group_by(<span className="text-green-300">"species"</span>){"\n"}
+                {"    "}.agg(pl.all().sum()){"\n"}
+                ){"\n\n"}
+                <span className="text-gray-500"># 実行！</span>{"\n"}
+                df = q.collect()
+              </CodeBlock>
+              <p className="mt-4 text-gray-600">こんな感じで書けちゃうの！めっちゃシンプルでしょ？😊</p>
+            </div>
+          </div>
+
+          <div className="bg-gray-50 rounded-lg p-6">
+            <h2 className="text-2xl font-bold mb-4">💝 コミュニティ＆サポート</h2>
+            <div className="space-y-4">
+              <p>めっちゃアクティブなコミュニティがあって、毎週くらいアップデートあるの！</p>
+              <div className="bg-white p-4 rounded shadow-sm">
+                <h3 className="font-bold text-pink-600 mb-2">👯‍♀️ 参加方法</h3>
+                <ul className="list-disc pl-4 space-y-2">
+                  <li>バグ見つけたら報告してね！</li>
+                  <li>新機能の提案もウェルカム！</li>
+                  <li>MITライセンスだから自由に使えるよ！</li>
+                </ul>
+              </div>
+              <div className="flex gap-2 flex-wrap">
+                <span className="bg-pink-500 text-white px-3 py-1 rounded-full text-sm">毎週アプデ</span>
+                <span className="bg-purple-500 text-white px-3 py-1 rounded-full text-sm">活発なコミュニティ</span>
+                <span className="bg-blue-500 text-white px-3 py-1 rounded-full text-sm">MITライセンス</span>
+                <span className="bg-green-500 text-white px-3 py-1 rounded-full text-sm">オープンソース</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
