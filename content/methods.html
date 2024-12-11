@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+  body {
+    font-family: system-ui, -apple-system, sans-serif;
+    max-width: 1200px;
+    margin: 0 auto;
+    background: #f8fafc;
+    padding: 2rem;
+  }
+  .container {
+    background: white;
+    border-radius: 1rem;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+  }
+  .header {
+    background: linear-gradient(135deg, #ec4899, #a855f7);
+    color: white;
+    padding: 1.5rem;
+    text-align: center;
+  }
+  .content {
+    padding: 1.5rem;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(500px, 1fr));
+    gap: 1.5rem;
+  }
+  .card {
+    background: white;
+    border-radius: 0.75rem;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+    overflow: hidden;
+  }
+  .card-header {
+    background: linear-gradient(135deg, #6366f1, #8b5cf6);
+    color: white;
+    padding: 0.75rem 1rem;
+    font-size: 1.1rem;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+  }
+  .card-content {
+    padding: 1rem;
+  }
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 0;
+    font-size: 0.9rem;
+  }
+  th, td {
+    border: 1px solid #e2e8f0;
+    padding: 0.75rem;
+    text-align: left;
+  }
+  th {
+    background: #f8fafc;
+    color: #6366f1;
+    font-weight: 600;
+  }
+  .code {
+    font-family: monospace;
+    padding: 0.15rem 0.3rem;
+    border-radius: 0.25rem;
+    font-size: 0.85em;
+  }
+  .keyword { color: #8b5cf6; }
+  .string { color: #059669; }
+  .number { color: #0284c7; }
+  .function { color: #7c3aed; }
+  .emoji-title {
+    font-size: 1.2em;
+    margin-right: 0.5rem;
+  }
+</style>
+</head>
+<body>
+  <div class="container">
+    <div class="header">
+      <h1>✨ Polars主要メソッド完全攻略ガイド ✨</h1>
+      <p>マジ使える機能を全部まとめちゃった！💖</p>
+    </div>
+
+    <div class="content">
+      <div class="card">
+        <div class="card-header">
+          <span class="emoji-title">📥</span> データフレーム作成・読み込み系
+        </div>
+        <div class="card-content">
+          <table>
+            <tr><th>メソッド</th><th>説明</th><th>使用例</th></tr>
+            <tr>
+              <td><span class="code"><span class="function">pl.DataFrame</span>()</span></td>
+              <td>新規作成 💫</td>
+              <td><span class="code"><span class="function">pl.DataFrame</span>({<span class="string">"col1"</span>: [<span class="number">1</span>,<span class="number">2</span>]})</span></td>
+            </tr>
+            <tr>
+              <td><span class="code"><span class="function">read_csv</span>()</span></td>
+              <td>CSV読込 📄</td>
+              <td><span class="code"><span class="function">pl.read_csv</span>(<span class="string">"data.csv"</span>)</span></td>
+            </tr>
+            <tr>
+              <td><span class="code"><span class="function">read_parquet</span>()</span></td>
+              <td>Parquet読込 📦</td>
+              <td><span class="code"><span class="function">pl.read_parquet</span>(<span class="string">"data.parquet"</span>)</span></td>
+            </tr>
+          </table>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-header">
+          <span class="emoji-title">🔍</span> データ選択・フィルタリング系
+        </div>
+        <div class="card-content">
+          <table>
+            <tr><th>メソッド</th><th>説明</th><th>使用例</th></tr>
+            <tr>
+              <td><span class="code"><span class="function">select</span>()</span></td>
+              <td>列選択 ✌️</td>
+              <td><span class="code">df.<span class="function">select</span>([<span class="string">"col1"</span>])</span></td>
+            </tr>
+            <tr>
+              <td><span class="code"><span class="function">filter</span>()</span></td>
+              <td>条件抽出 🎯</td>
+              <td><span class="code">df.<span class="function">filter</span>(pl.col(<span class="string">"age"</span>) > <span class="number">25</span>)</span></td>
+            </tr>
+            <tr>
+              <td><span class="code"><span class="function">head/tail</span>()</span></td>
+              <td>先頭/末尾表示 👀</td>
+              <td><span class="code">df.<span class="function">head</span>(<span class="number">5</span>)</span></td>
+            </tr>
+          </table>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-header">
+          <span class="emoji-title">✨</span> データ変換・操作系
+        </div>
+        <div class="card-content">
+          <table>
+            <tr><th>メソッド</th><th>説明</th><th>使用例</th></tr>
+            <tr>
+              <td><span class="code"><span class="function">with_columns</span>()</span></td>
+              <td>列追加/変更 🆕</td>
+              <td><span class="code">df.<span class="function">with_columns</span>([pl.col(<span class="string">"a"</span>)*<span class="number">2</span>])</span></td>
+            </tr>
+            <tr>
+              <td><span class="code"><span class="function">sort</span>()</span></td>
+              <td>ソート 📊</td>
+              <td><span class="code">df.<span class="function">sort</span>(<span class="string">"col"</span>)</span></td>
+            </tr>
+            <tr>
+              <td><span class="code"><span class="function">fill_null</span>()</span></td>
+              <td>欠損値処理 🔄</td>
+              <td><span class="code">df.<span class="function">fill_null</span>(<span class="number">0</span>)</span></td>
+            </tr>
+          </table>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-header">
+          <span class="emoji-title">📊</span> グループ化・集計系
+        </div>
+        <div class="card-content">
+          <table>
+            <tr><th>メソッド</th><th>説明</th><th>使用例</th></tr>
+            <tr>
+              <td><span class="code"><span class="function">groupby</span>()</span></td>
+              <td>グループ化 👥</td>
+              <td><span class="code">df.<span class="function">groupby</span>(<span class="string">"category"</span>)</span></td>
+            </tr>
+            <tr>
+              <td><span class="code"><span class="function">agg</span>()</span></td>
+              <td>集計処理 🧮</td>
+              <td><span class="code">df.<span class="function">agg</span>([pl.<span class="function">sum</span>()])</span></td>
+            </tr>
+            <tr>
+              <td><span class="code"><span class="function">pivot</span>()</span></td>
+              <td>ピボット変換 🔄</td>
+              <td><span class="code">df.<span class="function">pivot</span>(<span class="string">"key"</span>)</span></td>
+            </tr>
+          </table>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-header">
+          <span class="emoji-title">🔄</span> 結合・出力系
+        </div>
+        <div class="card-content">
+          <table>
+            <tr><th>メソッド</th><th>説明</th><th>使用例</th></tr>
+            <tr>
+              <td><span class="code"><span class="function">join</span>()</span></td>
+              <td>データ結合 🤝</td>
+              <td><span class="code">df1.<span class="function">join</span>(df2, on=<span class="string">"key"</span>)</span></td>
+            </tr>
+            <tr>
+              <td><span class="code"><span class="function">write_csv</span>()</span></td>
+              <td>CSV保存 💾</td>
+              <td><span class="code">df.<span class="function">write_csv</span>(<span class="string">"out.csv"</span>)</span></td>
+            </tr>
+            <tr>
+              <td><span class="code"><span class="function">write_parquet</span>()</span></td>
+              <td>Parquet保存 📦</td>
+              <td><span class="code">df.<span class="function">write_parquet</span>(<span class="string">"out.parquet"</span>)</span></td>
+            </tr>
+          </table>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-header">
+          <span class="emoji-title">ℹ️</span> 情報・統計系
+        </div>
+        <div class="card-content">
+          <table>
+            <tr><th>メソッド</th><th>説明</th><th>使用例</th></tr>
+            <tr>
+              <td><span class="code"><span class="function">describe</span>()</span></td>
+              <td>基本統計量 📊</td>
+              <td><span class="code">df.<span class="function">describe</span>()</span></td>
+            </tr>
+            <tr>
+              <td><span class="code">dtypes</span></td>
+              <td>データ型確認 🔍</td>
+              <td><span class="code">df.dtypes</span></td>
+            </tr>
+            <tr>
+              <td><span class="code"><span class="function">null_count</span>()</span></td>
+              <td>欠損値カウント 🔢</td>
+              <td><span class="code">df.<span class="function">null_count</span>()</span></td>
+            </tr>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>
