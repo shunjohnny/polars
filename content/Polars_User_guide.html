@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+  body {
+    font-family: system-ui, -apple-system, sans-serif;
+    max-width: 900px;
+    margin: 0 auto;
+    background: #f8fafc;
+    padding: 2rem;
+  }
+  .container {
+    background: white;
+    border-radius: 1rem;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+  }
+  .header {
+    background: linear-gradient(135deg, #ec4899, #a855f7);
+    color: white;
+    padding: 2rem;
+  }
+  .content {
+    padding: 2rem;
+  }
+  .card {
+    background: #f1f5f9;
+    border-radius: 0.5rem;
+    padding: 1.5rem;
+    margin-bottom: 1.5rem;
+  }
+  .feature {
+    background: white;
+    padding: 1rem;
+    border-radius: 0.5rem;
+    margin-bottom: 1rem;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+  }
+  .code {
+    background: #1e293b;
+    color: #e2e8f0;
+    padding: 1.5rem;
+    border-radius: 0.5rem;
+    font-family: monospace;
+    margin: 0.5rem 0;
+    overflow-x: auto;
+    line-height: 1.5;
+    white-space: pre;
+  }
+  .tag {
+    display: inline-block;
+    padding: 0.25rem 0.75rem;
+    border-radius: 1rem;
+    background: #3b82f6;
+    color: white;
+    font-size: 0.875rem;
+    margin: 0.3rem;
+  }
+  .tag-group {
+    margin: 1rem 0;
+  }
+  .description {
+    color: #475569;
+    margin: 0.5rem 0;
+    line-height: 1.6;
+  }
+  h1 { 
+    font-size: 2.5rem;
+    margin: 0 0 1rem 0;
+  }
+  h2 {
+    font-size: 1.5rem;
+    margin: 0 0 1rem 0;
+  }
+  h3 {
+    color: #ec4899;
+    font-size: 1.25rem;
+    margin: 0 0 0.5rem 0;
+  }
+  .keyword { color: #ff79c6; }
+  .string { color: #98fb98; }
+  .number { color: #bd93f9; }
+  .comment { color: #6b7280; }
+</style>
+</head>
+<body>
+  <div class="container">
+    <div class="header">
+      <h1>💅 Polars超入門～！</h1>
+      <p>マジ速いデータ分析ライブラリ、Polarsの使い方を解説するね！</p>
+    </div>
+    
+    <div class="content">
+      <div class="card">
+        <h2>✨ Polarsのすごいとこ！</h2>
+        <div class="feature">
+          <h3>💨 速さがやばい！</h3>
+          <p>Rustで作られてて、マシンに超フィットする設計なの！依存とかなしでサクサク動くよ～</p>
+        </div>
+        <div class="feature">
+          <h3>📂 入出力が便利！</h3>
+          <p>ローカルでもクラウドでもデータベースでも、なんでも読み込めちゃう！マジ使える！</p>
+        </div>
+        <div class="feature">
+          <h3>💁‍♀️ 使い方簡単！</h3>
+          <p>クエリの書き方が超分かりやすいの！裏側で最適化とかしてくれるから効率もバッチリ！</p>
+        </div>
+        <div class="feature">
+          <h3>💫 メモリの心配なし！</h3>
+          <p>ストリーミングAPIで、全部のデータをメモリに入れなくても処理できちゃうの！賢すぎない？</p>
+        </div>
+        <div class="feature">
+          <h3>💅 並列処理もデフォ！</h3>
+          <p>PCのコア全部使って分散処理してくれるの！設定とかいらないからマジ楽！</p>
+        </div>
+        <div class="feature">
+          <h3>🎮 GPU対応！</h3>
+          <p>NVIDIAのGPU使えば、さらにパワーアップできちゃう！オプションだけど最強！</p>
+        </div>
+      </div>
+
+      <div class="card">
+        <h2>🌈 データフレームって何？</h2>
+        <div class="feature">
+          <p>データフレームは2次元のデータ構造で、表みたいな感じなの！行と列にラベルがついてて、違うタイプのデータも一緒に扱えるの！マジ便利！分析とか加工とかが超らくちん！💕</p>
+        </div>
+      </div>
+
+      <div class="card">
+        <h2>🎯 Polarsの目指してること</h2>
+        <div class="feature">
+          <ul>
+            <li>💪 全CPUコア使いこなす！</li>
+            <li>✨ 無駄な処理なしの最適化！</li>
+            <li>📈 RAMより大きいデータもへっちゃら！</li>
+            <li>👌 使い方が一貫してて分かりやすい！</li>
+            <li>🎯 データの型がちゃんとしてる！</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="card">
+        <h2>🌟 実際の使い方</h2>
+        <div class="code">
+<span class="keyword">import</span> polars <span class="keyword">as</span> pl
+
+q = (
+    pl.scan_csv(<span class="string">"docs/assets/data/iris.csv"</span>)
+    .filter(pl.col(<span class="string">"sepal_length"</span>) > <span class="number">5</span>)
+    .group_by(<span class="string">"species"</span>)
+    .agg(pl.all().sum())
+)
+
+df = q.collect()</div>
+        <p class="description">こんな感じで書けちゃうの！めっちゃシンプルでしょ？😊</p>
+      </div>
+
+      <div class="card">
+        <h2>💝 コミュニティ＆サポート</h2>
+        <div class="feature">
+          <p>めっちゃアクティブなコミュニティがあって、毎週くらいアップデートあるの！</p>
+          <div class="tag-group">
+            <span class="tag">毎週アプデ</span>
+            <span class="tag">活発なコミュニティ</span>
+            <span class="tag">MITライセンス</span>
+            <span class="tag">オープンソース</span>
+          </div>
+          <h3>👯‍♀️ 参加方法</h3>
+          <ul>
+            <li>バグ見つけたら報告してね！</li>
+            <li>新機能の提案もウェルカム！</li>
+            <li>MITライセンスだから自由に使えるよ！</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>
